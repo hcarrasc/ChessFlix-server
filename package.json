@@ -1,0 +1,29 @@
+{
+  "name": "chessflix-server",
+  "version": "1.0.0",
+  "description": "All chess that you need",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hcarrasc/ChessFlix-server.git"
+  },
+  "keywords": [
+    "chess",
+    "fun",
+    "brain"
+  ],
+  "author": "HC",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hcarrasc/ChessFlix-server/issues"
+  },
+  "homepage": "https://github.com/hcarrasc/ChessFlix-server#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
