@@ -1,3 +1,7 @@
+/**
+ *  Server and router setup
+ */
+
 import express, { json } from 'express';
 import './database.js'
 import 'dotenv/config'
@@ -5,19 +9,19 @@ import 'dotenv/config'
 // Express configuration
 const app  = express();
 const PORT = process.env.PORT;
+const APP_HOST = process.env.APP_HOST;
+const APP_NAME = process.env.APP_NAME;
 
 // Middleware para parsear JSON en las solicitudes
 app.use(json());
 
-// Importar rutas
+// Router configuration
 import gameRoutes   from './controllers/gameController.js';
 import playerRoutes from './controllers/playerController.js';
-
-// Usar las rutas
 app.use('/chessflix/api/games',  gameRoutes);
 app.use('/chessflix/api/player', playerRoutes);
 
 // Iniciar el servidor
 app.listen(PORT, () => {
-  console.log(`Servidor API REST escuchando en el puerto ${PORT}`);
+  console.log(`⏯️ ${APP_NAME} API REST running at ${APP_HOST}:${PORT} `);
 });

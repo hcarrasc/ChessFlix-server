@@ -1,4 +1,6 @@
-
+/**
+ * @class some validations
+ */
 export class validator {
 
     isNumber(valor) {
