@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { validator } from '../../utils/validators.js';
+import { validator } from '../utils/validators.js';
 
 const router = Router();
 const validations = new validator();
