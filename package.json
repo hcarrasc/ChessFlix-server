@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "load-game-from-file": "node src/helpers/loadGameFromFile.js",
+    "save-game": "node src/helpers/saveGameToBD.js",
     "start": "nodemon src/index.js"
   },
   "repository": {
@@ -24,7 +25,6 @@
   },
   "homepage": "https://github.com/hcarrasc/ChessFlix-server#readme",
   "dependencies": {
-    "@mliebelt/pgn-parser": "^1.4.12",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "mongoose": "^7.4.5",
