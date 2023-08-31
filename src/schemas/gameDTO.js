@@ -1,12 +1,23 @@
 import mongoose from 'mongoose';
+
 const { Schema } = mongoose;
 
 const gameSchema = new Schema({
-  white: String,
-  whiteElo: String,
-  black: String,
-  blackElo: String,
-  result: String,
-  event: String,
-  date: String
+    event: String,
+    site: String,
+    date: String,
+    white: String,
+    whiteElo: Number,
+    black: String,
+    blackElo: Number,
+    ECO: String,
+    opening: String,
+    variation: String,
+    result: String,
+    special: String,
+    moves: String
 });
+
+const gameModel = mongoose.model('games', gameSchema);
+
+export default gameModel;

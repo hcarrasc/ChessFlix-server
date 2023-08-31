@@ -5,8 +5,9 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "load-game-from-file": "node src/helpers/loadGameFromFile.js",
-    "save-game": "node src/helpers/saveGameToBD.js",
+    "load-games": "node src/helpers/loadGameFromFile.js",
+    "save-games": "node src/helpers/saveGameToBD.js",
+    "split-games": "node src/helpers/splitFile.js",
     "start": "nodemon src/index.js"
   },
   "repository": {

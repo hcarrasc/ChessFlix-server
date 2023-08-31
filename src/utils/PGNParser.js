@@ -13,10 +13,13 @@ class PGNParser {
     const pgnData = fs.readFileSync(this.filePath, "utf8");
     const lines = pgnData.split("\n");
 
-    for (const line of lines) {
+    for (let line of lines) {
+      
       if (line === "" || line.startsWith("%")) {
         continue;
       }
+
+      line = line.replace(/\r/g, '');
 
       if (line.startsWith("[") && !this.readingMoves) {
         const parts = line.match(/\[(\w+)\s+"(.*?)"/);
@@ -37,12 +40,14 @@ class PGNParser {
             this.currentGame.moves += line + " "; 
       }
 
-      if ( line.trim().endsWith("1-0") || line.trim().endsWith("0-1") || line.trim().endsWith("1/2-1/2")) {
-        this.currentGame.moves += line;
+      if ( line.trim().endsWith("1-0") || 
+               line.trim().endsWith("0-1") || 
+                    line.trim().endsWith("1/2-1/2")) {
+        
         this.games.push({ ...this.currentGame });
         this.currentGame = {};
         this.readingMoves = false;
-      } 
+      }
     }
   }
 

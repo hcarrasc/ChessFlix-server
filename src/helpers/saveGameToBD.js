@@ -6,49 +6,44 @@
 
 import mongoose from 'mongoose';
 import '../database.js'
-const { Schema } = mongoose;
-
-const gameSchema = new Schema({
-    event: String,
-    site: String,
-    date: String,
-    white: String,
-    whiteElo: Number,
-    black: String,
-    blackElo: Number,
-    ECO: String,
-    opening: String,
-    variation: String,
-    result: String,
-    moves: String, 
-});
-
+import gameModel from '../schemas/gameDTO.js';
 import PGNParser from './../utils/PGNParser.js';
 
-const parser = new PGNParser('./src/helpers/game-example.pgn');
+
+const parser = new PGNParser('./src/helpers/part-2.pgn');
 parser.parse();
 const games = parser.getGames();
 
-games.forEach((game, index) => {
-    console.log(`Partida ${index + 1}:`);
-    console.log(game);
-    console.log('------------------------');
+mongoose.connection.on('connected', () => {
 
-const gameModel = mongoose.model('games', gameSchema);
-const pivot = new gameModel ({
-    event: game.Event,
-    site: game.Site,
-    date: game.Date,
-    white: game.White,
-    whiteElo: game.WhiteElo,
-    black: game.Black,
-    blackElo: game.BlackElo,
-    ECO: game.ECO,
-    opening: game.Opening,
-    variation: game.Variation,
-    result: game.Result,
-    moves: game.moves 
-});
-pivot.save();
-console.log('Write game 📝 sucessfuly');
-});
+    console.log('⏯️ CFX DB Up and Running 💪')
+
+    games.forEach((game, index) => {
+        console.log(`Partida ${index + 1}:`);
+ 
+        const pivot = new gameModel ({
+            event: game.Event,
+            site: game.Site,
+            date: game.Date,
+            white: game.White,
+            whiteElo: game.WhiteElo,
+            black: game.Black,
+            blackElo: game.BlackElo,
+            ECO: game.ECO,
+            opening: game.Opening,
+            variation: game.Variation,
+            result: game.Result,
+            special: '',
+            moves: game.moves 
+        });
+
+        pivot.save();
+
+    });
+    
+    console.log('Write games sucessfuly');
+  });
+  
+  mongoose.connection.on('error', (err) => {
+    console.error('Error en la conexión a la base de datos:', err);
+  });

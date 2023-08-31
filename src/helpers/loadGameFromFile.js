@@ -6,7 +6,7 @@
 
 import PGNParser from './../utils/PGNParser.js';
 
-const parser = new PGNParser('./src/helpers/game-example.pgn');
+const parser = new PGNParser('./src/helpers/twic1503.pgn');
 parser.parse();
 const games = parser.getGames();
 //console.log('Read game first instance 📖 => ', games);
