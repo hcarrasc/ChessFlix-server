@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { validator } from '../utils/validators.js';
+import { Validator } from '../utils/validators.js';
 
 const router = Router();
-const validations = new validator();
+const validations = new Validator();
 
 router.get('/featured', (req, res) => {
    res.send(`Obteniendo juego destacado`);

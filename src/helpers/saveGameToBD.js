@@ -1,6 +1,6 @@
 /**
  *  This module allows read a pgn file, parse it and assign to an object.
- *  @event load-game-from-file this module could be excetured by npm run
+ *  @event load-games this module could be excetured by npm run
  *  @file game-example.pgn is a chess game in pgn format
  */
 
@@ -9,8 +9,9 @@ import '../database.js'
 import gameModel from '../schemas/gameDTO.js';
 import PGNParser from './../utils/PGNParser.js';
 
+const path = './src/helpers/game-example.pgn'
 
-const parser = new PGNParser('./src/helpers/part-2.pgn');
+const parser = new PGNParser(path);
 parser.parse();
 const games = parser.getGames();
 
@@ -41,7 +42,7 @@ mongoose.connection.on('connected', () => {
 
     });
     
-    console.log('Write games sucessfuly');
+    console.log('Write games '+ path +' sucessfuly');
   });
   
   mongoose.connection.on('error', (err) => {

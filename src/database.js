@@ -1,6 +1,9 @@
-import { connect } from 'mongoose';
+import mongoose from 'mongoose';
 import 'dotenv/config'
 
-console.log(process.env.DB_URI);
+mongoose.connect(process.env.DB_URI, { 
+    useNewUrlParser: true, 
+    useUnifiedTopology: true 
+});
 
-connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+export default mongoose;
