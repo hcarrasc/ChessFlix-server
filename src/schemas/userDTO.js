@@ -1,5 +1,4 @@
-import mongoose from '../database.js';
-
+import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
@@ -8,7 +7,7 @@ const userSchema = new Schema({
     lastLogin: String,
     device: String,
     name: String,
-    state: String
+    status: String
 });
 
 const userModel = mongoose.model('users', userSchema);

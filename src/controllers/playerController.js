@@ -8,12 +8,12 @@ const RESP_NO_CONTENT      = parseInt(process.env.RESP_NO_CONTENT, 10);
 export const getPlayer = async (req, res) => {
     try {
         const player = req.params.player;
-        res.
+        return res.
             status(RESP_OK).
             json(`Obteniendo ${limit} partidas de ${player}`);
         
     } catch (error) {
-        res.status(RESP_INTERNAL_ERROR).json({ error: 'Internal server error' });
+        return res.status(RESP_INTERNAL_ERROR).json({ error: 'Internal server error' });
     }
 }
 
@@ -22,7 +22,7 @@ export const getPlayerLastGame = async (req, res) => {
         const player = req.params.player;
         
     } catch (error) {
-        res.status(RESP_INTERNAL_ERROR).json({ error: 'Internal server error' });
+        return res.status(RESP_INTERNAL_ERROR).json({ error: 'Internal server error' });
     }
 }
 
@@ -34,7 +34,7 @@ export const getPlayerInmortalGame = async (req, res) => {
             const inmortalGame = await gameModel.find({
                 special: 'inmortal'
             });
-            res.status(RESP_OK).json(inmortalGame);
+            return res.status(RESP_OK).json(inmortalGame);
         } else {
             console.log(`trying to get ${player}'s inmortal game`);
             const inmortalGame = await gameModel.find({
@@ -46,11 +46,11 @@ export const getPlayerInmortalGame = async (req, res) => {
                     {special: 'inmortal'}
                 ]
             });
-            res.status(RESP_OK).json(inmortalGame);
+            return res.status(RESP_OK).json(inmortalGame);
         }
         
     } catch (error) {
-        res.status(RESP_INTERNAL_ERROR).json({ error: 'Internal server error' });
+        return res.status(RESP_INTERNAL_ERROR).json({ error: 'Internal server error' });
     }
 }
 
@@ -64,8 +64,8 @@ export const getPlayerGamesWithLimit = async (req, res) => {
                 { black: player }
               ]
         }).limit(limit);
-        res.status(RESP_OK).json(gamesWithLimit);
+        return res.status(RESP_OK).json(gamesWithLimit);
     } catch (error) {
-        res.status(RESP_INTERNAL_ERROR).json({ error: 'Internal server error' });
+        return res.status(RESP_INTERNAL_ERROR).json({ error: 'Internal server error' });
     }
 }

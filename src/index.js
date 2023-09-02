@@ -1,7 +1,7 @@
 /**
  *  Server setup
  */
-
+import './database.js'
 import express, { json } from 'express';
 import 'dotenv/config'
 import playerRoutes from './routes/PlayerRoutes.js';
