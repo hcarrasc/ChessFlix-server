@@ -1,5 +1,5 @@
 import gameModel from '../schemas/gameDTO.js';
-import 'dotenv/config'
+import 'dotenv/config';
 
 const RESP_OK              = parseInt(process.env.RESP_OK, 10);
 const RESP_INTERNAL_ERROR  = parseInt(process.env.RESP_INTERNAL_ERROR, 10);
@@ -58,13 +58,13 @@ export const getPlayerGamesWithLimit = async (req, res) => {
     try {
         const player = req.params.player; 
         const limit = parseInt(req.params.limit); 
-        const inmortalGame = await gameModel.find({
+        const gamesWithLimit = await gameModel.find({
             $or: [
-                { white: player },    // Buscar usuarios con nombre 'Alice'
-                { black: player }  // Buscar usuarios con edad mayor a 30
+                { white: player },
+                { black: player }
               ]
         }).limit(limit);
-        res.status(RESP_OK).json(inmortalGame);
+        res.status(RESP_OK).json(gamesWithLimit);
     } catch (error) {
         res.status(RESP_INTERNAL_ERROR).json({ error: 'Internal server error' });
     }
