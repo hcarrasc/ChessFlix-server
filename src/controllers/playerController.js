@@ -7,22 +7,38 @@ const RESP_NO_CONTENT      = parseInt(process.env.RESP_NO_CONTENT, 10);
 
 export const getPlayer = async (req, res) => {
     try {
-        const player = req.params.player;
-        return res.
-            status(RESP_OK).
-            json(`Obteniendo ${limit} partidas de ${player}`);
+        const player = req.params.player; 
+        console.log(`trying to get ${player}'s last game`);
+        const lastGame = await gameModel.find({
+            $or: [
+                { white: player },
+                { black: player }
+            ]
+        });
+        return res.status(RESP_OK).json(lastGame);
         
     } catch (error) {
-        return res.status(RESP_INTERNAL_ERROR).json({ error: 'Internal server error' });
+        return res.status(RESP_INTERNAL_ERROR).json({ error: 'Internal server error ', error });
     }
 }
 
 export const getPlayerLastGame = async (req, res) => {
     try {
-        const player = req.params.player;
+        const limitGames = 5;
+        const player = req.params.player; 
+        console.log(`trying to get ${player}'s lastests game`);
+        const lastGame = await gameModel.find({
+            $or: [
+                { white: player },
+                { black: player }
+            ]
+        }).sort({ 
+            date: -1 
+        }).limit(limitGames);
+        return res.status(RESP_OK).json(lastGame);
         
     } catch (error) {
-        return res.status(RESP_INTERNAL_ERROR).json({ error: 'Internal server error' });
+        return res.status(RESP_INTERNAL_ERROR).json({ error: 'Internal server error ', error });
     }
 }
 
