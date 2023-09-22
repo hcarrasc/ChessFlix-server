@@ -2,6 +2,8 @@ import userModel from '../schemas/userDTO.js';
 import 'dotenv/config'
 import { validationResult } from 'express-validator';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+
 
 const RESP_OK              = parseInt(process.env.RESP_OK, 10);
 const RESP_INTERNAL_ERROR  = parseInt(process.env.RESP_INTERNAL_ERROR, 10);
@@ -41,10 +43,16 @@ export const register = async (req, res) => {
 }
 
 export const login = async (req, res) => {
+
+    const secretKey = "123hchc123";
+
     try {
         let result = await userModel.find({ email: req.body.email });
         const passwordMatch = bcrypt.compareSync(req.body.password, result[0].password);
         if (passwordMatch) {
+
+            let token = jwt.sign({ email: req.body.email }, secretKey, { expiresIn: '1h' });
+            result[0].password = token;
             return res.status(RESP_OK).json(result[0]);
         } else {
             return res.status(RESP_NO_CONTENT).json("login error... check your user and pass");
