@@ -15,13 +15,13 @@ export const register = async (req, res) => {
         }
         const { email, password, name } = req.body;
 
-        if (await isRegistered(email)){
-            return res.status(RESP_INTERNAL_ERROR).json({ error: 'bad news Already registered' });
+        if (await getUserFromDB(email)){
+            return res.status(RESP_INTERNAL_ERROR).json({ error: 'email invalid to register' });
         } else {
             const hashedPassword = bcrypt.hashSync(password, 10);
             const status  = process.env.INIT_USER_STATUS;
             const device = process.env.LAST_DEVICE;
-            const lastLogin = new Date().getTime();;
+            const lastLogin = new Date().getTime();
 
             const user = new userModel ({
                 email: email,unique: true,
@@ -42,36 +42,28 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
     try {
-        console.log(` getting ${req.body.email} and ${req.body.password}`);
-        return res.status(RESP_OK).json("local aim");
-
-        
+        let result = await userModel.find({ email: req.body.email });
+        const passwordMatch = bcrypt.compareSync(req.body.password, result[0].password);
+        if (passwordMatch) {
+            return res.status(RESP_OK).json(result[0]);
+        } else {
+            return res.status(RESP_NO_CONTENT).json("login error... check your user and pass");
+        }
     } catch (error) {
-        return res.status(RESP_INTERNAL_ERROR).json({ error: 'Internal server error' });
+        return res.status(RESP_INTERNAL_ERROR).json({ error: 'Internal login error' });
     }
 }
 
-async function isRegistered(email) {
+async function getUserFromDB(email) {
     try {
         const result = await userModel.find({ email: email });
-
-        if (result.length === 0) {
-            console.log('user do not exist, registering...');
-            return false;
-        } else {
-            console.log('user already exist, skipping...');
+        if (result.length === 1) {
             return true;
+        } else {
+            return false;
         }
     } catch (error) {
         console.error('Error:', error);
         return true;
     }
 }
-
-async function isValidLogin(params) {
-
-        //const passwordMatch = bcrypt.compareSync(req.body.password, user.password);
-
-    
-}
-
