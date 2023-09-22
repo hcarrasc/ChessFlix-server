@@ -14,7 +14,10 @@
 			},
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": ""
+				}
 			},
 			"response": []
 		},
@@ -26,7 +29,21 @@
 			},
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "localhost:3003/chessflix/api/player/Kasparov, Garry/last",
+					"host": [
+						"localhost"
+					],
+					"port": "3003",
+					"path": [
+						"chessflix",
+						"api",
+						"player",
+						"Kasparov, Garry",
+						"last"
+					]
+				}
 			},
 			"response": []
 		},
@@ -38,7 +55,36 @@
 			},
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "player : list",
+			"id": "52e03b46-9dae-40ac-b52f-29727bb05ebd",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3003/chessflix/api/player/Kasparov, Garry/10",
+					"host": [
+						"localhost"
+					],
+					"port": "3003",
+					"path": [
+						"chessflix",
+						"api",
+						"player",
+						"Kasparov, Garry",
+						"10"
+					]
+				}
 			},
 			"response": []
 		}
